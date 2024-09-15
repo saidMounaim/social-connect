@@ -19,7 +19,7 @@ model User {
   email    String  @unique
   password String
   image    String?
-  isAdmin  Boolean
+  isAdmin  Boolean @default(false)
 
   posts Post[]
 }
