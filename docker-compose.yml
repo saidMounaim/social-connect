@@ -1,0 +1,17 @@
+services:
+  postgress:
+    image: postgres
+    container_name: postgresql
+    restart: unless-stopped
+    ports:
+      - "4321:4321"
+    environment:
+      - POSTGRES_USER=sm
+      - POSTGRES_PASSWORD=sm_sc
+      - POSTGRES_DB=socialconnect
+    networks:
+      - sm
+
+networks:
+  sm:
+    name: sm

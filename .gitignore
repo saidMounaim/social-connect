@@ -1,0 +1,51 @@
+# dependencies
+backend/node_modules/
+
+# IDE
+backend/.idea
+backend/.awcache
+backend/.vscode
+backend/.devcontainer
+backend/.classpath
+backend/.project
+backend/.settings 
+backend/*.code-workspace
+
+# Vim
+backend/[._]*.s[a-v][a-z]
+backend/[._]*.sw[a-p]
+backend/[._]s[a-rt-v][a-z]
+backend/[._]ss[a-gi-z]
+backend/[._]sw[a-p]
+
+# bundle
+backend/packages/**/*.d.ts
+backend/packages/**/*.js
+
+# misc
+backend/.DS_Store
+backend/lerna-debug.log
+backend/npm-debug.log
+backend/yarn-error.log
+backend/**/npm-debug.log
+backend/packages/**/.npmignore
+backend/packages/**/LICENSE
+backend/*.tsbuildinfo
+
+# example
+backend/quick-start
+backend/example_dist
+backend/example
+
+# tests
+backend/test
+backend/benchmarks/memory
+backend/coverage
+backend/.nyc_output
+backend/packages/graphql
+backend/benchmarks/memory
+backend/build/config\.gypi
+
+backend/.env
+backend/.npmrc
+backend/pnpm-lock.yaml
