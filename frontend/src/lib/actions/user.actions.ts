@@ -1,6 +1,6 @@
 "use server";
 
-import { registerUserProps } from "./types";
+import { registerUserProps } from "../types";
 
 const apiUrl = process.env.API_URL;
 

@@ -3,7 +3,10 @@ import { RegisterUserDto } from './dto/register-user.dto';
 export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
-    login(email: string, password: string): Promise<{
+    login(userLogin: {
+        email: string;
+        password: string;
+    }): Promise<{
         id: string;
         name: string;
         email: string;

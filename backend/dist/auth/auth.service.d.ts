@@ -5,7 +5,10 @@ export declare class AuthService {
     private readonly prisma;
     private jwtService;
     constructor(prisma: PrismaService, jwtService: JwtService);
-    login(email: string, password: string): Promise<{
+    login(userLogin: {
+        email: string;
+        password: string;
+    }): Promise<{
         id: string;
         name: string;
         email: string;

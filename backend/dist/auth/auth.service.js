@@ -19,13 +19,17 @@ let AuthService = class AuthService {
         this.prisma = prisma;
         this.jwtService = jwtService;
     }
-    async login(email, password) {
+    async login(userLogin) {
         try {
-            const user = await this.prisma.user.findUnique({ where: { email } });
+            const user = await this.prisma.user.findUnique({
+                where: { email: userLogin.email },
+            });
             if (!user) {
                 throw new common_1.BadRequestException('User not found');
+                console.log('user', user);
             }
-            if (password && !bcrypt.compareSync(password, user.password)) {
+            if (userLogin.password &&
+                !bcrypt.compareSync(userLogin.password, user.password)) {
                 throw new common_1.BadRequestException('Email or password invalid');
             }
             return {
@@ -37,6 +41,7 @@ let AuthService = class AuthService {
             };
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadGatewayException(error);
         }
     }

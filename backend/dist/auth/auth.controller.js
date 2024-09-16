@@ -20,8 +20,8 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    login(email, password) {
-        return this.authService.login(email, password);
+    login(userLogin) {
+        return this.authService.login(userLogin);
     }
     register(registerUserDto) {
         return this.authService.register(registerUserDto);
@@ -31,9 +31,8 @@ exports.AuthController = AuthController;
 __decorate([
     (0, common_1.Post)('/login'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
 __decorate([
