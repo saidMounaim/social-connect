@@ -39,19 +39,22 @@ export const config = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: any) {
+    session: async ({ session, token }: any) => {
+      session.user.id = token.sub;
+      session.user.access_token = token.access_token;
+      session.user.name = token.name;
+      session.user.image = token.image;
+      return session;
+    },
+    jwt: async ({ token, user, trigger, session }: any) => {
       if (user) {
-        token.id = user.id;
-        token.accessToken = user.accessToken;
-        token.isAdmin = user.isAdmin;
+        token.access_token = user.access_token;
+      }
+      if (trigger === "update") {
+        token.name = session.name;
+        token.image = session.image;
       }
       return token;
-    },
-    async session({ session, token }: any) {
-      session.user.id = token.id;
-      session.user.accessToken = token.accessToken;
-      session.user.isAdmin = token.isAdmin;
-      return session;
     },
   },
 } satisfies NextAuthConfig;

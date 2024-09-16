@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { showToast, toastStyles } from "@/lib/utils";
+import { showToast } from "@/lib/utils";
 import { SigninFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
@@ -37,20 +37,15 @@ export default function SigninForm() {
         password: values.password,
       });
       if (res?.error && res?.error !== "") {
-        showToast(toast, "Email or password invalid", toastStyles.error);
+        showToast(toast, "Email or password invalid", "danger");
       } else {
-        showToast(
-          toast,
-          "You have successfully logged in.",
-          toastStyles.success
-        );
         router.push("/dashboard");
+        showToast(toast, "You have successfully logged in.", "success");
       }
     } catch (error: any) {
-      console.log(error);
       const errorMessage =
         error?.errorMessage || "Something went wrong, please try again.";
-      showToast(toast, errorMessage, toastStyles.error);
+      showToast(toast, errorMessage, "danger");
     }
   }
 
@@ -81,7 +76,11 @@ export default function SigninForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={form.formState.isSubmitting}
+        >
           Sign in
         </Button>
       </form>

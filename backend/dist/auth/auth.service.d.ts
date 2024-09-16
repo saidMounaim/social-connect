@@ -1,10 +1,13 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { EditProfileDto } from './dto/edit-profile.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 export declare class AuthService {
     private readonly prisma;
     private jwtService;
-    constructor(prisma: PrismaService, jwtService: JwtService);
+    private cloudinaryService;
+    constructor(prisma: PrismaService, jwtService: JwtService, cloudinaryService: CloudinaryService);
     login(userLogin: {
         email: string;
         password: string;
@@ -19,5 +22,11 @@ export declare class AuthService {
         id: string;
         name: string;
         email: string;
+    }>;
+    editProfile(editProfileDto: EditProfileDto, image: Express.Multer.File, userId: string): Promise<{
+        id: string;
+        name: string;
+        email: string;
+        image: string;
     }>;
 }

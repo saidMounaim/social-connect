@@ -7,12 +7,15 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dto/register-user.dto';
+import { EditProfileDto } from './dto/edit-profile.dto';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private jwtService: JwtService,
+    private cloudinaryService: CloudinaryService,
   ) {}
 
   async login(userLogin: { email: string; password: string }) {
@@ -23,7 +26,6 @@ export class AuthService {
 
       if (!user) {
         throw new BadRequestException('User not found');
-        console.log('user', user);
       }
 
       if (
@@ -41,7 +43,6 @@ export class AuthService {
         access_token: this.jwtService.sign({ userId: user.id }),
       };
     } catch (error) {
-      console.log(error);
       throw new BadGatewayException(error);
     }
   }
@@ -71,5 +72,42 @@ export class AuthService {
     });
 
     return newUser;
+  }
+
+  async editProfile(
+    editProfileDto: EditProfileDto,
+    image: Express.Multer.File,
+    userId: string,
+  ) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    let uploadImageUrl: string;
+
+    if (image) {
+      try {
+        const uploadResult = await this.cloudinaryService.uploadImage(image);
+        uploadImageUrl = uploadResult.url;
+      } catch (error) {
+        throw new BadRequestException(error);
+      }
+    }
+
+    const updateProfile = { ...editProfileDto, image: uploadImageUrl };
+    return await this.prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: updateProfile,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        image: true,
+      },
+    });
   }
 }

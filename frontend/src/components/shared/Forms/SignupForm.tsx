@@ -14,7 +14,7 @@ import { SignupFormSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { formatErrorMessage, showToast, toastStyles } from "@/lib/utils";
+import { formatErrorMessage, showToast } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 
 export default function SignupForm() {
@@ -34,23 +34,15 @@ export default function SignupForm() {
       const response = await registerUserAction(values);
 
       if (response.id) {
-        showToast(
-          toast,
-          "User has been successfully registered.",
-          toastStyles.success
-        );
+        showToast(toast, "User has been successfully registered.", "success");
         form.reset();
       } else if (response.errorMessage) {
-        showToast(
-          toast,
-          formatErrorMessage(response.errorMessage),
-          toastStyles.error
-        );
+        showToast(toast, formatErrorMessage(response.errorMessage), "danger");
       }
     } catch (error: any) {
       const errorMessage =
         error?.errorMessage || "Something went wrong, please try again.";
-      showToast(toast, errorMessage, toastStyles.error);
+      showToast(toast, errorMessage, "danger");
     }
   }
 
@@ -109,8 +101,12 @@ export default function SignupForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
-          Submit
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={form.formState.isSubmitting}
+        >
+          Sign up
         </Button>
       </form>
     </Form>

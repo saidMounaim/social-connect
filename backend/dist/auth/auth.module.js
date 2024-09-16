@@ -15,6 +15,7 @@ const passport_1 = require("@nestjs/passport");
 const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
 const jwt_strategy_1 = require("./jwt.strategy");
+const cloudinary_module_1 = require("../cloudinary/cloudinary.module");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -27,6 +28,7 @@ exports.AuthModule = AuthModule = __decorate([
                 secret: new config_1.ConfigService().get('JWT_SECRET'),
                 signOptions: { expiresIn: '24h' },
             }),
+            cloudinary_module_1.CloudinaryModule,
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
