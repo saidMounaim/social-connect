@@ -1,6 +1,5 @@
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { TabsContent } from "../ui/tabs";
+import SignupForm from "./Forms/SignupForm";
 
 export default function SignupTab() {
   return (
@@ -11,14 +10,7 @@ export default function SignupTab() {
           Sign up and start connecting today!
         </p>
       </div>
-      <form className="space-y-4 mt-4">
-        <Input type="text" placeholder="Full Name" />
-        <Input type="email" placeholder="Email" />
-        <Input type="password" placeholder="Password" />
-        <Button className="w-full" type="submit">
-          Create Account
-        </Button>
-      </form>
+      <SignupForm />
     </TabsContent>
   );
 }
