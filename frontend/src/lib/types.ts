@@ -7,6 +7,7 @@ export interface registerUserProps {
 
 export interface CurrentUserProps {
   user: {
+    id?: string;
     name: string;
     email: string;
     image?: string;

@@ -31,6 +31,23 @@ let CommentService = class CommentService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async deleteComment(commentId, userId) {
+        try {
+            const comment = await this.prisma.comment.findUnique({
+                where: { id: commentId },
+            });
+            if (!comment) {
+                throw new common_1.BadRequestException('Comment not found');
+            }
+            if (comment.userId !== userId) {
+                throw new common_1.BadRequestException("You don't have permission to delete this comment");
+            }
+            return await this.prisma.comment.delete({ where: { id: commentId } });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
 };
 exports.CommentService = CommentService;
 exports.CommentService = CommentService = __decorate([

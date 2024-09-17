@@ -49,6 +49,7 @@ export const config = {
     jwt: async ({ token, user, trigger, session }: any) => {
       if (user) {
         token.access_token = user.access_token;
+        token.image = user.image;
       }
       if (trigger === "update") {
         token.name = session.name;

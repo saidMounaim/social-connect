@@ -11,4 +11,12 @@ export declare class CommentService {
         createdAt: Date;
         updatedAt: Date;
     }>;
+    deleteComment(commentId: string, userId: string): Promise<{
+        id: string;
+        body: string;
+        userId: string;
+        postId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }

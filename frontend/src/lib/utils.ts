@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function showToast(toast: any, title: string, type: string) {
-  toast({
+  return toast({
     className: `${
       type === "danger"
         ? "bg-red-500"

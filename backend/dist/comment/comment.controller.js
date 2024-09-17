@@ -25,6 +25,10 @@ let CommentController = class CommentController {
         const userId = req.user.id;
         return this.commentService.addComment(addCommentDto, userId);
     }
+    deleteComment(commentId, req) {
+        const userId = req.user.id;
+        return this.commentService.deleteComment(commentId, userId);
+    }
 };
 exports.CommentController = CommentController;
 __decorate([
@@ -36,6 +40,15 @@ __decorate([
     __metadata("design:paramtypes", [add_comment_dto_1.AddCommentDto, Object]),
     __metadata("design:returntype", void 0)
 ], CommentController.prototype, "addComment", null);
+__decorate([
+    (0, common_1.Delete)('/:commentId'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Param)('commentId')),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], CommentController.prototype, "deleteComment", null);
 exports.CommentController = CommentController = __decorate([
     (0, common_1.Controller)('comment'),
     __metadata("design:paramtypes", [comment_service_1.CommentService])

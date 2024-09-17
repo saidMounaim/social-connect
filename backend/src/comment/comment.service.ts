@@ -22,4 +22,26 @@ export class CommentService {
       throw new BadRequestException(error);
     }
   }
+
+  async deleteComment(commentId: string, userId: string) {
+    try {
+      const comment = await this.prisma.comment.findUnique({
+        where: { id: commentId },
+      });
+
+      if (!comment) {
+        throw new BadRequestException('Comment not found');
+      }
+
+      if (comment.userId !== userId) {
+        throw new BadRequestException(
+          "You don't have permission to delete this comment",
+        );
+      }
+
+      return await this.prisma.comment.delete({ where: { id: commentId } });
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
 }

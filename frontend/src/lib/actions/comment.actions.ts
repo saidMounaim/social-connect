@@ -31,3 +31,28 @@ export async function addCommentAction(commentData: any) {
     };
   }
 }
+
+export async function deleteCommentAction(commentId: string) {
+  const session = await auth();
+  try {
+    const response = await fetch(`${apiUrl}/comment/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${session?.user.access_token}`,
+      },
+    });
+    if (!response.ok) {
+      const error = await response.json();
+      return {
+        errorMessage:
+          error?.errorMessage || error?.message || "Unable to delete comment",
+      };
+    } else {
+      return response.json();
+    }
+  } catch (error: any) {
+    return {
+      errorMessage: error?.message || "Something went wrong, please try again",
+    };
+  }
+}

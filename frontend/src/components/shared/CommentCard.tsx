@@ -1,12 +1,49 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { CommentCardProps } from "@/lib/types";
-import { getInitials, timeAgo } from "@/lib/utils";
+import {
+  formatErrorMessage,
+  getInitials,
+  showToast,
+  timeAgo,
+} from "@/lib/utils";
+import { useSession } from "next-auth/react";
+import { Button } from "../ui/button";
+import { Trash2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { deleteCommentAction } from "@/lib/actions/comment.actions";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function CommentCard({
   comment,
 }: {
   comment: CommentCardProps;
 }) {
+  const { data: session } = useSession();
+
+  const { toast } = useToast();
+
+  const queryClient = useQueryClient();
+
+  async function handleDeleteComment(e: any) {
+    e.preventDefault();
+    const commentId = e.target.commentId.value;
+    try {
+      if (confirm("Are you sure ?")) {
+        const response = await deleteCommentAction(commentId);
+        if (response.id) {
+          showToast(toast, "Comment has been successfully deleted.", "success");
+          queryClient.invalidateQueries({ queryKey: ["posts"] });
+        } else if (response.errorMessage) {
+          showToast(toast, formatErrorMessage(response.errorMessage), "danger");
+        }
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error?.errorMessage || "Something went wrong, please try again.";
+      showToast(toast, errorMessage, "danger");
+    }
+  }
+
   return (
     <div className="w-full p-4 flex flex-col gap-4">
       <div className="flex space-x-4 w-full">
@@ -24,8 +61,16 @@ export default function CommentCard({
           </p>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex justify-between">
         <p className="text-md">{comment.body}</p>
+        {session && comment.user.id == session?.user.id && (
+          <form onSubmit={handleDeleteComment}>
+            <input type="hidden" name="commentId" value={comment.id} />
+            <Button variant="ghost" size="icon">
+              <Trash2 className="h-4 w-4" color="red" />
+            </Button>
+          </form>
+        )}
       </div>
     </div>
   );

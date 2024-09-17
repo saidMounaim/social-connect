@@ -11,4 +11,12 @@ export declare class CommentController {
         createdAt: Date;
         updatedAt: Date;
     }>;
+    deleteComment(commentId: string, req: any): Promise<{
+        id: string;
+        body: string;
+        userId: string;
+        postId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }
