@@ -19,14 +19,14 @@ export declare class AuthService {
         access_token: string;
     }>;
     register(registerUserDto: RegisterUserDto): Promise<{
-        id: string;
         name: string;
         email: string;
+        id: string;
     }>;
     editProfile(editProfileDto: EditProfileDto, image: Express.Multer.File, userId: string): Promise<{
-        id: string;
         name: string;
         email: string;
+        id: string;
         image: string;
     }>;
 }

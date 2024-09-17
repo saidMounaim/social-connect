@@ -38,3 +38,25 @@ export const EditProfileSchema = z.object({
     z.undefined(),
   ]),
 });
+
+export const CreatePostSchema = z.object({
+  body: z.string().min(1, "Post content is required"),
+  image: z
+    .union([
+      z
+        .custom<File>(
+          (file) => file instanceof File,
+          "Please upload a valid file"
+        )
+        .refine((file) => file.size <= 5000000, "Max file size is 5MB.")
+        .refine(
+          (file) =>
+            ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
+              file.type
+            ),
+          "Only .jpg, .jpeg, .png, and .webp formats are supported."
+        ),
+      z.undefined(),
+    ])
+    .optional(),
+});

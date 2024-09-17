@@ -6,8 +6,11 @@ import { Button } from "../ui/button";
 import { CurrentUserProps } from "@/lib/types";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 export default function ProfileSidebar({ user }: CurrentUserProps) {
+  const pathname = usePathname();
+
   return (
     <aside className="w-full md:w-64 bg-white p-4 border-r">
       <div className="flex flex-col items-center space-y-4">
@@ -38,7 +41,11 @@ export default function ProfileSidebar({ user }: CurrentUserProps) {
         </div>
         <div className="flex flex-col gap-2 w-full">
           <Button className="w-full" asChild>
-            <Link href="/profile/edit">Edit Profile</Link>
+            {pathname == "/dashboard" ? (
+              <Link href="/profile/edit">Edit Profile</Link>
+            ) : (
+              <Link href="/dashboard">Dashboard</Link>
+            )}
           </Button>
           <Button
             className="w-full"

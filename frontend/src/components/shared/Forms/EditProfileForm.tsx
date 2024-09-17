@@ -18,7 +18,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { EditProfileSchema } from "@/lib/validations";
 import { ProfileEditFormProps } from "@/lib/types";
-import { showToast, toastStyles } from "@/lib/utils";
+import { showToast } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { editProfileAction } from "@/lib/actions/user.actions";
 import { useSession } from "next-auth/react";
@@ -51,7 +51,7 @@ export default function EditProfileForm({ userInfo }: ProfileEditFormProps) {
     } catch (error: any) {
       const errorMessage =
         error?.errorMessage || "Something went wrong, please try again.";
-      showToast(toast, errorMessage, toastStyles.error);
+      showToast(toast, errorMessage, "danger");
     }
   }
 

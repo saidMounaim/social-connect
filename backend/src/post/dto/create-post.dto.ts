@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 
-export class EditProfileDto {
-  @IsString()
+export class CreatePostDto {
   @IsNotEmpty()
-  name: string;
+  @IsString()
+  body: string;
 }
