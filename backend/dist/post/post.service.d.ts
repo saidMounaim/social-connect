@@ -15,6 +15,16 @@ export declare class PostService {
             image: string;
             name: string;
         };
+        comments: {
+            id: string;
+            body: string;
+            createdAt: Date;
+            user: {
+                id: string;
+                image: string;
+                name: string;
+            };
+        }[];
     }[]>;
     createPost(createPostDto: CreatePostDto, userId: string, image?: Express.Multer.File): Promise<{
         image: string;

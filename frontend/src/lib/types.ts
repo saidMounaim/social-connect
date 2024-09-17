@@ -20,6 +20,13 @@ export interface ProfileEditFormProps {
   };
 }
 
+export interface CommentCardProps {
+  id: string;
+  body: string;
+  createdAt: Date;
+  user: CurrentUserProps["user"];
+}
+
 export interface PostCardProps {
   id: string;
   body: string;
@@ -30,4 +37,10 @@ export interface PostCardProps {
     name: string;
     image?: string;
   };
+  comments: CommentCardProps[];
+}
+
+export interface AddCommentFormProps {
+  user: CurrentUserProps["user"];
+  postId: string;
 }

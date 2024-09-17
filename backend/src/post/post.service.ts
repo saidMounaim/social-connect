@@ -26,6 +26,20 @@ export class PostService {
               image: true,
             },
           },
+          comments: {
+            select: {
+              id: true,
+              body: true,
+              createdAt: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  image: true,
+                },
+              },
+            },
+          },
         },
       });
       return posts;

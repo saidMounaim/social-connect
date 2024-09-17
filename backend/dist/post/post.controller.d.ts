@@ -13,6 +13,16 @@ export declare class PostController {
             image: string;
             name: string;
         };
+        comments: {
+            id: string;
+            body: string;
+            createdAt: Date;
+            user: {
+                id: string;
+                image: string;
+                name: string;
+            };
+        }[];
     }[]>;
     createPost(createPostDto: CreatePostDto, image: Express.Multer.File, req: any): Promise<{
         image: string;

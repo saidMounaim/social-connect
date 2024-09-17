@@ -21,8 +21,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Heart, MessageCircle, Trash2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import AddCommentForm from "./Forms/AddCommentForm";
+import CommentCard from "./CommentCard";
 
 export default function PostCard({ post }: { post: PostCardProps }) {
+  const [showComments, setShowComments] = useState(false);
   const { toast } = useToast();
   const { data: session } = useSession();
   const queryClient = useQueryClient();
@@ -86,15 +90,30 @@ export default function PostCard({ post }: { post: PostCardProps }) {
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="ghost" size="sm">
-          <Heart className="h-4 w-4 mr-2" />
-          Like
-        </Button>
-        <Button variant="ghost" size="sm">
-          <MessageCircle className="h-4 w-4 mr-2" />
-          Comment
-        </Button>
+      <CardFooter className="flex flex-col gap-4 justify-between">
+        <div className="flex justify-between w-full">
+          <Button variant="ghost" size="sm">
+            <Heart className="h-4 w-4 mr-2" />
+            Like
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowComments(!showComments)}
+          >
+            <MessageCircle className="h-4 w-4 mr-2" />
+            Comment
+          </Button>
+        </div>
+
+        {showComments && (
+          <>
+            {post.comments.map((comment) => (
+              <CommentCard key={comment.id} comment={comment} />
+            ))}
+            <AddCommentForm user={session?.user} postId={post.id} />
+          </>
+        )}
       </CardFooter>
     </Card>
   );

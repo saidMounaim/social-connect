@@ -21,7 +21,7 @@ export default function PostGrid() {
 
   return (
     <>
-      {posts.map((post: PostCardProps) => (
+      {posts?.map((post: PostCardProps) => (
         <PostCard key={post.id} post={post} />
       ))}
     </>

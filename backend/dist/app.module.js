@@ -15,6 +15,7 @@ const auth_module_1 = require("./auth/auth.module");
 const config_1 = require("@nestjs/config");
 const cloudinary_module_1 = require("./cloudinary/cloudinary.module");
 const post_module_1 = require("./post/post.module");
+const comment_module_1 = require("./comment/comment.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,6 +29,7 @@ exports.AppModule = AppModule = __decorate([
             cloudinary_module_1.CloudinaryModule,
             auth_module_1.AuthModule,
             post_module_1.PostModule,
+            comment_module_1.CommentModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

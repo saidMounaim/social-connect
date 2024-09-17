@@ -60,3 +60,7 @@ export const CreatePostSchema = z.object({
     ])
     .optional(),
 });
+
+export const AddCommentSchema = z.object({
+  body: z.string().min(1, "Comment is required"),
+});

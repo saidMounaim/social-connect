@@ -12,9 +12,10 @@ import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const session = await auth();
-  const queryClient = new QueryClient();
 
   if (!session) redirect("/");
+
+  const queryClient = new QueryClient();
 
   queryClient.prefetchQuery({
     queryKey: ["posts"],
