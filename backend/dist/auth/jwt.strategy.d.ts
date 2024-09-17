@@ -13,6 +13,8 @@ export declare class JwtStrategy extends JwtStrategy_base {
         password: string;
         image: string | null;
         isAdmin: boolean;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
 }
 export {};

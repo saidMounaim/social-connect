@@ -15,14 +15,14 @@ export declare class AuthController {
         access_token: string;
     }>;
     register(registerUserDto: RegisterUserDto): Promise<{
+        id: string;
         name: string;
         email: string;
-        id: string;
     }>;
     editProfile(editProfileDto: EditProfileDto, image: Express.Multer.File, req: any): Promise<{
+        id: string;
         name: string;
         email: string;
-        id: string;
         image: string;
     }>;
 }

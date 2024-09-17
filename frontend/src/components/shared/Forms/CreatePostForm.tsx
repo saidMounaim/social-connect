@@ -21,10 +21,12 @@ import { formatErrorMessage, getInitials, showToast } from "@/lib/utils";
 import { CreatePostSchema } from "@/lib/validations";
 import { useToast } from "@/hooks/use-toast";
 import { createPostAction } from "@/lib/actions/post.actions";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function CreatePostForm({ user }: CurrentUserProps) {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof CreatePostSchema>>({
     resolver: zodResolver(CreatePostSchema),
@@ -50,6 +52,7 @@ export default function CreatePostForm({ user }: CurrentUserProps) {
         showToast(toast, "Post was added succefully", "success");
         form.reset();
         setPreviewImage(null);
+        queryClient.invalidateQueries({ queryKey: ["posts"] });
       }
     } catch (error: any) {
       const errorMessage =

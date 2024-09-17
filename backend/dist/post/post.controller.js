@@ -22,12 +22,21 @@ let PostController = class PostController {
     constructor(postService) {
         this.postService = postService;
     }
+    getAll() {
+        return this.postService.getAll();
+    }
     createPost(createPostDto, image, req) {
         const userId = req.user.id;
         return this.postService.createPost(createPostDto, userId, image);
     }
 };
 exports.PostController = PostController;
+__decorate([
+    (0, common_1.Get)(''),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], PostController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Post)('/create'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),

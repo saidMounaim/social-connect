@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   FileTypeValidator,
+  Get,
   ParseFilePipe,
   Post,
   Req,
@@ -17,6 +18,11 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('post')
 export class PostController {
   constructor(private postService: PostService) {}
+
+  @Get('')
+  getAll() {
+    return this.postService.getAll();
+  }
 
   @Post('/create')
   @UseGuards(JwtAuthGuard)

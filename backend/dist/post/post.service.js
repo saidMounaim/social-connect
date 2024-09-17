@@ -18,6 +18,30 @@ let PostService = class PostService {
         this.prisma = prisma;
         this.cloudinaryService = cloudinaryService;
     }
+    async getAll() {
+        try {
+            const posts = await this.prisma.post.findMany({
+                orderBy: { createdAt: 'desc' },
+                select: {
+                    id: true,
+                    body: true,
+                    image: true,
+                    createdAt: true,
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            image: true,
+                        },
+                    },
+                },
+            });
+            return posts;
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
     async createPost(createPostDto, userId, image) {
         try {
             let uploadImageUrl;

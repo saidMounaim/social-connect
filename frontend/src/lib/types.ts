@@ -19,3 +19,15 @@ export interface ProfileEditFormProps {
     image?: string;
   };
 }
+
+export interface PostCardProps {
+  id: string;
+  body: string;
+  image?: string;
+  createdAt: Date;
+  user: {
+    id: string;
+    name: string;
+    image?: string;
+  };
+}
