@@ -19,4 +19,12 @@ export declare class PostController {
         userId: string;
         body: string;
     }>;
+    deletePost(postId: string, req: any): Promise<{
+        id: string;
+        body: string;
+        image: string | null;
+        userId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }

@@ -49,3 +49,28 @@ export async function createPostAction(createPostData: FormData) {
     };
   }
 }
+
+export async function deletePostAction(postId: string) {
+  const session = await auth();
+  try {
+    const response = await fetch(`${apiUrl}/post/${postId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${session?.user.access_token}`,
+      },
+    });
+    if (!response.ok) {
+      const error = await response.json();
+      return {
+        errorMessage:
+          error?.errorMessage || error?.message || "Unable to delete post",
+      };
+    } else {
+      return response.json();
+    }
+  } catch (error: any) {
+    return {
+      errorMessage: error?.message || "Something went wrong, please try again",
+    };
+  }
+}

@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   FileTypeValidator,
   Get,
+  Param,
   ParseFilePipe,
   Post,
   Req,
@@ -42,5 +44,12 @@ export class PostController {
   ) {
     const userId = req.user.id;
     return this.postService.createPost(createPostDto, userId, image);
+  }
+
+  @Delete('/:postId')
+  @UseGuards(JwtAuthGuard)
+  deletePost(@Param('postId') postId: string, @Req() req: any) {
+    const userId = req.user.id;
+    return this.postService.deletePost(postId, userId);
   }
 }

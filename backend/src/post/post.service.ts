@@ -59,4 +59,24 @@ export class PostService {
       throw new BadRequestException(error);
     }
   }
+
+  async deletePost(postId: string, userId: string) {
+    try {
+      const post = await this.prisma.post.findUnique({ where: { id: postId } });
+
+      if (!post) {
+        throw new BadRequestException('Post not found');
+      }
+
+      if (post.userId !== userId) {
+        throw new BadRequestException(
+          "You don't have permission to delete this post",
+        );
+      }
+
+      return await this.prisma.post.delete({ where: { id: postId } });
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
 }

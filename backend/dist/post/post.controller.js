@@ -29,6 +29,10 @@ let PostController = class PostController {
         const userId = req.user.id;
         return this.postService.createPost(createPostDto, userId, image);
     }
+    deletePost(postId, req) {
+        const userId = req.user.id;
+        return this.postService.deletePost(postId, userId);
+    }
 };
 exports.PostController = PostController;
 __decorate([
@@ -53,6 +57,15 @@ __decorate([
     __metadata("design:paramtypes", [create_post_dto_1.CreatePostDto, Object, Object]),
     __metadata("design:returntype", void 0)
 ], PostController.prototype, "createPost", null);
+__decorate([
+    (0, common_1.Delete)('/:postId'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Param)('postId')),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], PostController.prototype, "deletePost", null);
 exports.PostController = PostController = __decorate([
     (0, common_1.Controller)('post'),
     __metadata("design:paramtypes", [post_service_1.PostService])

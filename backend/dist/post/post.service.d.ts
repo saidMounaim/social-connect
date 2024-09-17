@@ -21,4 +21,12 @@ export declare class PostService {
         userId: string;
         body: string;
     }>;
+    deletePost(postId: string, userId: string): Promise<{
+        id: string;
+        body: string;
+        image: string | null;
+        userId: string;
+        createdAt: Date;
+        updatedAt: Date;
+    }>;
 }

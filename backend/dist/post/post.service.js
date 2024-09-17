@@ -62,6 +62,21 @@ let PostService = class PostService {
             throw new common_1.BadRequestException(error);
         }
     }
+    async deletePost(postId, userId) {
+        try {
+            const post = await this.prisma.post.findUnique({ where: { id: postId } });
+            if (!post) {
+                throw new common_1.BadRequestException('Post not found');
+            }
+            if (post.userId !== userId) {
+                throw new common_1.BadRequestException("You don't have permission to delete this post");
+            }
+            return await this.prisma.post.delete({ where: { id: postId } });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
 };
 exports.PostService = PostService;
 exports.PostService = PostService = __decorate([
