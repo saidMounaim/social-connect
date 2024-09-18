@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import CreatePostForm from "@/components/shared/Forms/CreatePostForm";
-import PostGrid from "@/components/shared/PostGrid";
+import PostGrid from "@/components/shared/Post/PostGrid";
 import ProfileSidebar from "@/components/shared/ProfileSidebar";
 import { getAllPostsAction } from "@/lib/actions/post.actions";
 import {

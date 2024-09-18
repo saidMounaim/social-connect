@@ -4,6 +4,7 @@ import { getAllPostsAction } from "@/lib/actions/post.actions";
 import { useQuery } from "@tanstack/react-query";
 import PostCard from "./PostCard";
 import { PostCardProps } from "@/lib/types";
+import PostCardSkeleton from "../Skeletons/PostCardSkeleton";
 
 export default function PostGrid() {
   const {
@@ -15,9 +16,9 @@ export default function PostGrid() {
     queryFn: () => getAllPostsAction(),
   });
 
-  if (isLoading) return <>Loading...</>;
-
   if (error) return <>Unable to fetch posts</>;
+
+  if (isLoading) return <PostCardSkeleton />;
 
   return (
     <>
