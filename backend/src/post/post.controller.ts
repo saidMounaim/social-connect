@@ -52,4 +52,15 @@ export class PostController {
     const userId = req.user.id;
     return this.postService.deletePost(postId, userId);
   }
+
+  @Post('/like')
+  @UseGuards(JwtAuthGuard)
+  likePost(
+    @Body() likeData: { postId: string; userId: string },
+    @Req() req: any,
+  ) {
+    const userId = req.user.id;
+    likeData = { ...likeData, userId };
+    return this.postService.likePost(likeData);
+  }
 }

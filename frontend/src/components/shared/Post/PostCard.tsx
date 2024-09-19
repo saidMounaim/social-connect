@@ -68,6 +68,7 @@ export default function PostCard({ post }: { post: PostCardProps }) {
         comments={post.comments}
         user={session?.user}
         postId={post.id}
+        likes={post.likes}
       />
     </Card>
   );

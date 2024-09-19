@@ -28,6 +28,12 @@ export interface CommentCardProps {
   user: CurrentUserProps["user"];
 }
 
+export interface LikesProps {
+  id: string;
+  userId: string;
+  postId: string;
+}
+
 export interface PostCardProps {
   id: string;
   body: string;
@@ -39,6 +45,7 @@ export interface PostCardProps {
     image?: string;
   };
   comments: CommentCardProps[];
+  likes: LikesProps[];
 }
 
 export interface AddCommentFormProps {

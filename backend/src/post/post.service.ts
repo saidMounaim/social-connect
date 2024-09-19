@@ -40,6 +40,13 @@ export class PostService {
               },
             },
           },
+          likes: {
+            select: {
+              id: true,
+              userId: true,
+              postId: true,
+            },
+          },
         },
       });
       return posts;
@@ -89,6 +96,38 @@ export class PostService {
       }
 
       return await this.prisma.post.delete({ where: { id: postId } });
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
+  async likePost(likeData: { userId: string; postId: string }) {
+    try {
+      const existingLike = await this.prisma.like.findUnique({
+        where: {
+          userId_postId: {
+            userId: likeData.userId,
+            postId: likeData.postId,
+          },
+        },
+      });
+      if (existingLike) {
+        return await this.prisma.like.delete({
+          where: {
+            userId_postId: {
+              userId: likeData.userId,
+              postId: likeData.postId,
+            },
+          },
+        });
+      }
+
+      return await this.prisma.like.create({
+        data: {
+          userId: likeData.userId,
+          postId: likeData.postId,
+        },
+      });
     } catch (error) {
       throw new BadRequestException(error);
     }

@@ -25,6 +25,11 @@ export declare class PostService {
                 name: string;
             };
         }[];
+        likes: {
+            id: string;
+            userId: string;
+            postId: string;
+        }[];
     }[]>;
     createPost(createPostDto: CreatePostDto, userId: string, image?: Express.Multer.File): Promise<{
         image: string;
@@ -38,5 +43,14 @@ export declare class PostService {
         userId: string;
         createdAt: Date;
         updatedAt: Date;
+    }>;
+    likePost(likeData: {
+        userId: string;
+        postId: string;
+    }): Promise<{
+        id: string;
+        userId: string;
+        postId: string;
+        createdAt: Date;
     }>;
 }

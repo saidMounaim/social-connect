@@ -33,6 +33,11 @@ let PostController = class PostController {
         const userId = req.user.id;
         return this.postService.deletePost(postId, userId);
     }
+    likePost(likeData, req) {
+        const userId = req.user.id;
+        likeData = { ...likeData, userId };
+        return this.postService.likePost(likeData);
+    }
 };
 exports.PostController = PostController;
 __decorate([
@@ -66,6 +71,15 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], PostController.prototype, "deletePost", null);
+__decorate([
+    (0, common_1.Post)('/like'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], PostController.prototype, "likePost", null);
 exports.PostController = PostController = __decorate([
     (0, common_1.Controller)('post'),
     __metadata("design:paramtypes", [post_service_1.PostService])

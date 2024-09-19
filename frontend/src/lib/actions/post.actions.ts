@@ -74,3 +74,35 @@ export async function deletePostAction(postId: string) {
     };
   }
 }
+
+export async function likePostAction(likeData: {
+  userId: string;
+  postId: string;
+}) {
+  const session = await auth();
+  try {
+    const response = await fetch(`${apiUrl}/post/like`, {
+      method: "POST",
+      body: JSON.stringify(likeData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.user.access_token}`,
+      },
+    });
+    if (!response.ok) {
+      const error = await response.json();
+      return {
+        errorMessage:
+          error?.errorMessage ||
+          error?.message ||
+          "Unable to like this post post",
+      };
+    } else {
+      return response.json();
+    }
+  } catch (error: any) {
+    return {
+      errorMessage: error?.message || "Something went wrong, please try again",
+    };
+  }
+}

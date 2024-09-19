@@ -48,6 +48,13 @@ let PostService = class PostService {
                             },
                         },
                     },
+                    likes: {
+                        select: {
+                            id: true,
+                            userId: true,
+                            postId: true,
+                        },
+                    },
                 },
             });
             return posts;
@@ -86,6 +93,37 @@ let PostService = class PostService {
                 throw new common_1.BadRequestException("You don't have permission to delete this post");
             }
             return await this.prisma.post.delete({ where: { id: postId } });
+        }
+        catch (error) {
+            throw new common_1.BadRequestException(error);
+        }
+    }
+    async likePost(likeData) {
+        try {
+            const existingLike = await this.prisma.like.findUnique({
+                where: {
+                    userId_postId: {
+                        userId: likeData.userId,
+                        postId: likeData.postId,
+                    },
+                },
+            });
+            if (existingLike) {
+                return await this.prisma.like.delete({
+                    where: {
+                        userId_postId: {
+                            userId: likeData.userId,
+                            postId: likeData.postId,
+                        },
+                    },
+                });
+            }
+            return await this.prisma.like.create({
+                data: {
+                    userId: likeData.userId,
+                    postId: likeData.postId,
+                },
+            });
         }
         catch (error) {
             throw new common_1.BadRequestException(error);
