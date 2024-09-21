@@ -6,30 +6,30 @@ export declare class PostService {
     private cloudinaryService;
     constructor(prisma: PrismaService, cloudinaryService: CloudinaryService);
     getAll(): Promise<{
-        id: string;
-        body: string;
-        image: string;
-        createdAt: Date;
         user: {
             id: string;
-            image: string;
             name: string;
+            image: string;
         };
+        id: string;
+        image: string;
+        createdAt: Date;
         comments: {
-            id: string;
-            body: string;
-            createdAt: Date;
             user: {
                 id: string;
-                image: string;
                 name: string;
+                image: string;
             };
+            id: string;
+            createdAt: Date;
+            body: string;
         }[];
         likes: {
             id: string;
             userId: string;
             postId: string;
         }[];
+        body: string;
     }[]>;
     createPost(createPostDto: CreatePostDto, userId: string, image?: Express.Multer.File): Promise<{
         image: string;

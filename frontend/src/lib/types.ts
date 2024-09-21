@@ -11,6 +11,9 @@ export interface CurrentUserProps {
     name: string;
     email: string;
     image?: string;
+    posts?: any;
+    following?: any;
+    followers?: any;
   };
 }
 
@@ -51,4 +54,10 @@ export interface PostCardProps {
 export interface AddCommentFormProps {
   user: CurrentUserProps["user"];
   postId: string;
+}
+
+export interface FollowProps {
+  id?: true;
+  followingId: any;
+  followerId: string | undefined;
 }

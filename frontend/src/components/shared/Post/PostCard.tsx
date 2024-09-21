@@ -27,6 +27,7 @@ export default function PostCard({ post }: { post: PostCardProps }) {
           if (response.id) {
             showToast(toast, "Post has been successfully deleted.", "success");
             queryClient.invalidateQueries({ queryKey: ["posts"] });
+            queryClient.invalidateQueries({ queryKey: ["userPosts"] });
           } else if (response.errorMessage) {
             showToast(
               toast,

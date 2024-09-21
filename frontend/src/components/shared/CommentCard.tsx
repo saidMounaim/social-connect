@@ -39,6 +39,7 @@ export default function CommentCard({
               "success"
             );
             queryClient.invalidateQueries({ queryKey: ["posts"] });
+            queryClient.invalidateQueries({ queryKey: ["userPosts"] });
           } else if (response.errorMessage) {
             showToast(
               toast,

@@ -7,6 +7,8 @@ import { ConfigModule } from '@nestjs/config';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { PostModule } from './post/post.module';
 import { CommentModule } from './comment/comment.module';
+import { FollowModule } from './follow/follow.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { CommentModule } from './comment/comment.module';
     AuthModule,
     PostModule,
     CommentModule,
+    FollowModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

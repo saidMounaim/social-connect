@@ -7,6 +7,7 @@ import { CurrentUserProps } from "@/lib/types";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { useCallback } from "react";
 
 export default function ProfileSidebar({ user }: CurrentUserProps) {
   const pathname = usePathname();

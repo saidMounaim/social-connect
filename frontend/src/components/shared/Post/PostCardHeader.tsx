@@ -4,6 +4,7 @@ import { CardHeader } from "@/components/ui/card";
 import { PostCardProps } from "@/lib/types";
 import { getInitials, timeAgo } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
+import Link from "next/link";
 
 interface PostCardHeaderProps {
   post: PostCardProps;
@@ -26,7 +27,9 @@ export default function PostCardHeader({
         )}
       </Avatar>
       <div className="flex-1">
-        <p className="font-bold">{post.user.name}</p>
+        <Link href={`/user/${post.user.id}`}>
+          <p className="font-bold">{post.user.name}</p>
+        </Link>
         <p className="text-sm text-muted-foreground">
           {timeAgo(new Date(post.createdAt))}
         </p>

@@ -4,30 +4,30 @@ export declare class PostController {
     private postService;
     constructor(postService: PostService);
     getAll(): Promise<{
-        id: string;
-        body: string;
-        image: string;
-        createdAt: Date;
         user: {
             id: string;
-            image: string;
             name: string;
+            image: string;
         };
+        id: string;
+        image: string;
+        createdAt: Date;
         comments: {
-            id: string;
-            body: string;
-            createdAt: Date;
             user: {
                 id: string;
-                image: string;
                 name: string;
+                image: string;
             };
+            id: string;
+            createdAt: Date;
+            body: string;
         }[];
         likes: {
             id: string;
             userId: string;
             postId: string;
         }[];
+        body: string;
     }[]>;
     createPost(createPostDto: CreatePostDto, image: Express.Multer.File, req: any): Promise<{
         image: string;

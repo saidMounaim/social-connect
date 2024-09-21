@@ -41,6 +41,7 @@ export default function AddCommentForm({ user, postId }: AddCommentFormProps) {
         showToast(toast, "Comment was added succefully", "success");
         form.reset();
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["userPosts"] });
       }
     } catch (error: any) {
       const errorMessage =

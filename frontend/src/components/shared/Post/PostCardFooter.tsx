@@ -44,6 +44,7 @@ export default function PostCardFooter({
         const response = await likePostAction(likeData);
         if (response.id) {
           queryClient.invalidateQueries({ queryKey: ["posts"] });
+          queryClient.invalidateQueries({ queryKey: ["userPosts"] });
         } else if (response.errorMessage) {
           showToast(toast, formatErrorMessage(response.errorMessage), "danger");
         }

@@ -21,9 +21,11 @@ model User {
   image    String?
   isAdmin  Boolean @default(false)
 
-  posts    Post[]
-  comments Comment[]
-  likes    Like[]
+  posts     Post[]
+  comments  Comment[]
+  likes     Like[]
+  following Follow[]  @relation("followingRelation")
+  followers Follow[]  @relation("followerRelation")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -70,4 +72,18 @@ model Like {
   createdAt DateTime @default(now())
 
   @@unique([userId, postId])
+}
+
+model Follow {
+  id String @id @default(uuid())
+
+  follower   User   @relation("followerRelation", fields: [followerId], references: [id])
+  followerId String
+
+  following   User   @relation("followingRelation", fields: [followingId], references: [id])
+  followingId String
+
+  createdAt DateTime @default(now())
+
+  @@unique([followerId, followingId]) // Ensure a user can't follow the same user twice
 }

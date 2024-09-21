@@ -53,6 +53,7 @@ export default function CreatePostForm({ user }: CurrentUserProps) {
         form.reset();
         setPreviewImage(null);
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["userPosts"] });
       }
     } catch (error: any) {
       const errorMessage =
