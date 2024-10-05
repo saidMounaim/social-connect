@@ -4,7 +4,7 @@ Social-connect app built with NestJS, Next.js 14, Tailwind CSS, Prisma, and Next
 
 ## Getting Started
 
-Clone the repository: `git clone https://github.com/saidMounaim/home-service.git`
+Clone the repository: `git clone https://github.com/saidMounaim/social-connect.git`
 Install dependencies:
 
 For the frontend:
